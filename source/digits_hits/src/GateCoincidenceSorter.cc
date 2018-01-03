@@ -24,15 +24,18 @@ See GATE/LICENSE.txt for further details
 #include "GateVSystem.hh"
 #include "GateCoincidenceDigiMaker.hh"
 
+//! added by CGY in 2016/12/12
+#include "cmath"
+
 //#include <map>
 
 //------------------------------------------------------------------------------------------------------
 G4int GateCoincidenceSorter::gm_coincSectNum=0;
 // Constructs a new coincidence sorter, attached to a GateDigitizer and to a system
 GateCoincidenceSorter::GateCoincidenceSorter(GateDigitizer* itsDigitizer,
-      	      	      	      	      	     const G4String& itsOutputName,
-      	      	      	      	      	     G4double itsWindow,
-      	      	      	      	      	     const G4String& itsInputName)
+                                             const G4String& itsOutputName,
+                                             G4double itsWindow,
+                                             const G4String& itsInputName)
   : GateClockDependent(itsDigitizer->GetObjectName()+"/"+itsOutputName),
     m_digitizer(itsDigitizer),
     m_system(0),
@@ -46,6 +49,7 @@ GateCoincidenceSorter::GateCoincidenceSorter(GateDigitizer* itsDigitizer,
     m_multiplesPolicy(kKeepIfAllAreGoods),
     m_allPulseOpenCoincGate(false),
     m_depth(1),
+    m_minCoinDistance(0),// 80mm for the minimum distance of two pulse in a coincidence.
     m_presortBufferSize(256),
     m_presortWarning(false)
 {
@@ -101,27 +105,27 @@ void GateCoincidenceSorter::Describe(size_t indent)
 void GateCoincidenceSorter::SetMultiplesPolicy(const G4String& policy)
 {
     if (policy=="takeWinnerOfGoods")
-    	m_multiplesPolicy=kTakeWinnerOfGoods;
+        m_multiplesPolicy=kTakeWinnerOfGoods;
     else if (policy=="takeWinnerIfIsGood")
-    	m_multiplesPolicy=kTakeWinnerIfIsGood;
+        m_multiplesPolicy=kTakeWinnerIfIsGood;
     else if (policy=="takeWinnerIfAllAreGoods")
-    	m_multiplesPolicy=kTakeWinnerIfAllAreGoods;
+        m_multiplesPolicy=kTakeWinnerIfAllAreGoods;
     else if (policy=="killAll")
-    	m_multiplesPolicy=kKillAll;
+        m_multiplesPolicy=kKillAll;
     else if (policy=="takeAllGoods")
-    	m_multiplesPolicy=kTakeAllGoods;
+        m_multiplesPolicy=kTakeAllGoods;
     else if (policy=="killAllIfMultipleGoods")
-    	m_multiplesPolicy=kKillAllIfMultipleGoods;
+        m_multiplesPolicy=kKillAllIfMultipleGoods;
     else if (policy=="keepIfAnyIsGood")
-    	m_multiplesPolicy=kKeepIfAnyIsGood;
+        m_multiplesPolicy=kKeepIfAnyIsGood;
     else if (policy=="keepIfOnlyOneGood")
-    	m_multiplesPolicy=kKeepIfOnlyOneGood;
+        m_multiplesPolicy=kKeepIfOnlyOneGood;
     else if (policy=="keepAll")
-    	m_multiplesPolicy=kKeepAll;
+        m_multiplesPolicy=kKeepAll;
     else {
-    	if (policy!="keepIfAllAreGoods")
-    	    G4cout<<"WARNING : policy not recognized, using default : keepMultiplesIfAllAreGoods\n";
-  	m_multiplesPolicy=kKeepIfAllAreGoods;
+        if (policy!="keepIfAllAreGoods")
+            G4cout<<"WARNING : policy not recognized, using default : keepMultiplesIfAllAreGoods\n";
+    m_multiplesPolicy=kKeepIfAllAreGoods;
     }
 }
 //------------------------------------------------------------------------------------------------------
@@ -156,7 +160,7 @@ void GateCoincidenceSorter::ProcessSinglePulseList(GatePulseList* inp)
 
     if(m_presortBuffer.empty())
       m_presortBuffer.push_back(pulse);
-    else if(pulse->GetTime() < m_presortBuffer.back()->GetTime())    // check that even isn't earlier than the earliest event in the buffer
+    else if(pulse->GetTime() < m_presortBuffer.back()->GetTime())    // check that event isn't earlier than the earliest event in the buffer
     {
       if(!m_presortWarning)
         GateWarning("Event is earlier than earliest event in coincidence presort buffer. Consider using a larger buffer.");
@@ -411,36 +415,36 @@ GateCoincidencePulse* GateCoincidenceSorter::CreateSubPulse(GateCoincidencePulse
 G4int GateCoincidenceSorter::ComputeSectorID(const GatePulse& pulse)
 {
     if (m_depth>=(G4int)pulse.GetOutputVolumeID().size()) {
-    	G4cerr<<"[GateCoincidenceSorter::ComputeSectorID]: Required depth's too deep, setting it to 1\n";
-	m_depth=1;
+        G4cerr<<"[GateCoincidenceSorter::ComputeSectorID]: Required depth's too deep, setting it to 1\n";
+    m_depth=1;
     }
     static std::vector<G4int> gkSectorMultiplier;
     static std::vector<G4int> gkSectorNumber;
     if (gkSectorMultiplier.empty()){
-    	// this code is done just one time for performance improving
-	// one suppose that the system hierarchy is linear until the desired depth
-    	GateSystemComponent* comp = m_system->GetBaseComponent();
-	G4int depth=0;
-	while (comp){
-	    gkSectorNumber.push_back(comp->GetAngularRepeatNumber());
-	    if ( (depth<m_depth) && ( comp->GetChildNumber() == 1)   ){
-	    	comp = comp->GetChildComponent(0);
-		depth++;
-	    }
-	    else
-	    	comp=0;
-	}
-	gkSectorMultiplier.resize(gkSectorNumber.size());
-	gkSectorMultiplier[gkSectorNumber.size()-1] = 1;
-	for (G4int i=(G4int)gkSectorNumber.size()-2;i>=0;--i){
-	    gkSectorMultiplier[i] = gkSectorMultiplier[i+1] * gkSectorNumber[i+1];
-	}
-	gm_coincSectNum = gkSectorMultiplier[0];
+        // this code is done just one time for performance improving
+    // one suppose that the system hierarchy is linear until the desired depth
+        GateSystemComponent* comp = m_system->GetBaseComponent();
+    G4int depth=0;
+    while (comp){
+        gkSectorNumber.push_back(comp->GetAngularRepeatNumber());
+        if ( (depth<m_depth) && ( comp->GetChildNumber() == 1)   ){
+            comp = comp->GetChildComponent(0);
+        depth++;
+        }
+        else
+            comp=0;
+    }
+    gkSectorMultiplier.resize(gkSectorNumber.size());
+    gkSectorMultiplier[gkSectorNumber.size()-1] = 1;
+    for (G4int i=(G4int)gkSectorNumber.size()-2;i>=0;--i){
+        gkSectorMultiplier[i] = gkSectorMultiplier[i+1] * gkSectorNumber[i+1];
+    }
+    gm_coincSectNum = gkSectorMultiplier[0];
     }
     G4int ans=0;
     for (G4int i=0;i<=m_depth;i++){
-    	G4int x = pulse.GetComponentID(i)%gkSectorNumber[i];
-    	ans += x*gkSectorMultiplier[i];
+        G4int x = pulse.GetComponentID(i)%gkSectorNumber[i];
+        ans += x*gkSectorMultiplier[i];
     }
 
     return ans;
@@ -454,6 +458,16 @@ G4bool GateCoincidenceSorter::IsForbiddenCoincidence(const GatePulse* pulse1, co
 {
   G4int blockID1 = m_system->GetMainComponentID(pulse1),
         blockID2 = m_system->GetMainComponentID(pulse2);
+  //!modifed by CGY 2016/12/12
+  //!get the distance of two pulse position
+  G4ThreeVector pos1 = pulse1->GetGlobalPos();
+  G4ThreeVector pos2 = pulse2->GetGlobalPos();
+  G4double dist = sqrt(pow(pos1.getX()-pos2.getX(),2)+pow(pos1.getY()-pos2.getY(),2)+pow(pos1.getZ()-pos2.getZ(),2));
+  //!for sphericalPET system and sphericalPET1 system
+  G4String nameComp1 = "systems/sphericalPET";
+  G4String nameComp2 = "systems/sphericalPET1";
+  G4String nameComp3 = "systems/multiPatchPET";
+
 
  // Modif by D. Lazaro, February 25th, 2004
   // Computation of sectorID, sectorNumber and sectorDifference, paramaters depending on
@@ -465,7 +479,7 @@ G4bool GateCoincidenceSorter::IsForbiddenCoincidence(const GatePulse* pulse1, co
   //G4cout << "NAME OF THE SYSTEM: " << name << "; NAME TO COMPARE: " << nameComp << Gateendl;
   int comp = strcmp(name,nameComp);
 
-  if (comp == 0) {
+  if (comp == 0) {//ecatAccel
     // Compute the sector difference
     G4int sectorID1 = m_system->ComputeSectorIDSphere(blockID1),
     sectorID2 = m_system->ComputeSectorIDSphere(blockID2);
@@ -491,9 +505,18 @@ G4bool GateCoincidenceSorter::IsForbiddenCoincidence(const GatePulse* pulse1, co
     return false;
   }
   else {
+      int comp1 = strcmp(name,nameComp1);
+      int comp2 = strcmp(name,nameComp2);
+      int comp3 = strcmp(name,nameComp3);
+      int crystalID1 = m_system->GetDetectorComponentID(pulse1);
+      int crystalID2 = m_system->GetDetectorComponentID(pulse2);
+      if(comp1 || comp2 || comp3){  // sphericalPET(prism) or sphericalPET1(polygon) or multiPatchPET
+          if (dist < GetMinCoinDistance()|| crystalID1 == crystalID2){ return true;}
+          else {return false;}
+      }
   // Compute the sector difference
   G4int sectorID1 = ComputeSectorID(*pulse1),
-      	sectorID2 = ComputeSectorID(*pulse2);
+        sectorID2 = ComputeSectorID(*pulse2);
 
   // Get the number of sectors per ring
   // G4int sectorNumber = GetCoincidentSectorNumber();
@@ -508,9 +531,9 @@ G4bool GateCoincidenceSorter::IsForbiddenCoincidence(const GatePulse* pulse1, co
 
   //Compare the sector difference with the minimum differences for valid coincidences
   if (sectorDifference<m_minSectorDifference) {
-      	if (nVerboseLevel>1)
-      	    G4cout << "[GateCoincidenceSorter::IsForbiddenCoincidence]: coincidence between neighbour blocks --> refused\n";
-	return true;
+        if (nVerboseLevel>1)
+            G4cout << "[GateCoincidenceSorter::IsForbiddenCoincidence]: coincidence between neighbour blocks --> refused\n";
+    return true;
   }
 
   return false;

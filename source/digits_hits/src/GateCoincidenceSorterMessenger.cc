@@ -76,6 +76,11 @@ GateCoincidenceSorterMessenger::GateCoincidenceSorterMessenger(GateCoincidenceSo
   AllPulseOpenCoincGateCmd = new G4UIcmdWithABool(cmdName,this);
   AllPulseOpenCoincGateCmd->SetGuidance("Specify if a given pulse can be part of two coincs");
 
+  //added by CGY in 2016/12/12
+  cmdName = GetDirectoryName() + "setMinCoinDistance";
+  SetMinCoinDistanceCmd = new G4UIcmdWithADoubleAndUnit(cmdName,this);
+  SetMinCoinDistanceCmd->SetGuidance("Set Minimum pulse distance for coincidences");
+  SetMinCoinDistanceCmd->SetUnitCategory("Length");
 }
 
 
@@ -90,6 +95,7 @@ GateCoincidenceSorterMessenger::~GateCoincidenceSorterMessenger()
   delete MultiplePolicyCmd;
   delete setPresortBufferSizeCmd;
   delete AllPulseOpenCoincGateCmd;
+  delete SetMinCoinDistanceCmd;
 }
 
 
@@ -118,6 +124,8 @@ void GateCoincidenceSorterMessenger::SetNewValue(G4UIcommand* aCommand, G4String
     { GetCoincidenceSorter()->SetMultiplesPolicy(newValue); }
   else if (aCommand == AllPulseOpenCoincGateCmd)
     { GetCoincidenceSorter()->SetAllPulseOpenCoincGate(AllPulseOpenCoincGateCmd->GetNewBoolValue(newValue)); }
+  else if (aCommand == SetMinCoinDistanceCmd)
+    { GetCoincidenceSorter()->SetMinCoinDistance(SetMinCoinDistanceCmd->GetNewDoubleValue(newValue)); }
   else
     GateClockDependentMessenger::SetNewValue(aCommand,newValue);
 }
