@@ -161,12 +161,61 @@ GateCylinderComponent* GateVSystem::FindCylinderCreatorComponent(const G4String&
   return FindTypedComponent<GateCylinderComponent>(componentName);
 } 
 //-----------------------------------------------------------------------------
+
 //-----------------------------------------------------------------------------
-// Finds a cylindercreator-component from its name
+// Finds a wedegecreator-component from its name
 GateWedgeComponent* GateVSystem::FindWedgeCreatorComponent(const G4String& componentName) const
 {
   return FindTypedComponent<GateWedgeComponent>(componentName);
 } 
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a prismcreator-component from its name
+GatePrismComponent* GateVSystem::FindPrismCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GatePrismComponent>(componentName);
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a pentagoncreator-component from its name
+GatePentagonComponent* GateVSystem::FindPentagonCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GatePentagonComponent>(componentName);
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a prismcreator-component from its name
+GateHexagonComponent* GateVSystem::FindHexagonCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GateHexagonComponent>(componentName);
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a spherecreator-component from its name
+GateSphereComponent* GateVSystem::FindSphereCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GateSphereComponent>(componentName);
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a patchcreator-component from its name
+GatePatchComponent* GateVSystem::FindPatchCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GatePatchComponent>(componentName);
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Finds a patchcreator-component from its name
+GateTessellatedComponent* GateVSystem::FindTessellatedCreatorComponent(const G4String& componentName) const
+{
+  return FindTypedComponent<GateTessellatedComponent>(componentName);
+}
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------

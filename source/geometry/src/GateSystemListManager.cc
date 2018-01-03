@@ -9,6 +9,7 @@
 /*
    Revision v6.2   2012/07/09  by vesna.cuplov@gmail.com
    Added the new OpticalSystem for optical imaging.
+   Added the sphericalPETSystem for novel geometric PET scanner
 */
 
 #include "GateSystemListManager.hh"
@@ -23,6 +24,8 @@
 #include "GatePETScannerSystem.hh"
 #include "GateCTScannerSystem.hh"
 #include "GateOPETSystem.hh"
+#include "GateSphericalPETSystem.hh"
+#include "GateMultiPatchPETSystem.hh"
 #include "GateSystemComponent.hh"
 #include "GateVVolume.hh"
 
@@ -45,6 +48,9 @@ const G4String GateSystemListManager::theSystemNameList[]= {
   "CTscanner",
   "OPET",
   "OpticalSystem", // Optical System name - v. cuplov
+  "sphericalPET",  // Spherical System name(prisms) - CGY
+  "sphericalPET1", // Spherical System name(pentagons and hexagons) - CGY
+  "multiPatchPET", // Multi-Patchs System name - CGY
   ""
 };
 //-----------------------------------------------------------------------------
@@ -221,6 +227,15 @@ GateVSystem* GateSystemListManager::InsertNewSystem(const G4String& typeName)
       break;
     case 10:  
       newSystem = new GateOpticalSystem(MakeElementName(typeName));  // Optical System - v. cuplov
+      break;
+    case 11:
+      newSystem = new GateSphericalPETSystem(MakeElementName(typeName)); //SphericalPET System - CGY
+      break;
+    case 12:
+      newSystem = new GateSphericalPETSystem(MakeElementName(typeName));
+      break;
+    case 13:
+      newSystem = new GateMultiPatchPETSystem(MakeElementName(typeName));
       break;
     default:
       G4cout << "System type name '" << typeName << "' was not recognised --> insertion request must be ignored!\n";
