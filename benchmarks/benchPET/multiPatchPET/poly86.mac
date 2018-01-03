@@ -1,0 +1,259 @@
+#  92 surfaces polyhedraon Scanner                        
+
+/gate/world/daughters/name multiPatchPET                 
+/gate/world/daughters/insert sphere                       
+/gate/multiPatchPET/setMaterial Air
+/gate/multiPatchPET/geometry/setRmax   18.0 cm
+/gate/multiPatchPET/geometry/setRmin   14.0 cm               
+/gate/multiPatchPET/geometry/setThetaStart 30.0 degree     
+/gate/multiPatchPET/geometry/setDeltaTheta 180.0 degree    
+/gate/multiPatchPET/vis/forceWireframe                     
+/gate/multiPatchPET/vis/setColor gray                      
+#/gate/multiPatchPET/vis/setVisible false                   
+
+
+####################################
+###### construct the sphere    #####
+####################################
+
+
+####################################
+########      P    ############
+####################################
+/gate/multiPatchPET/daughters/name container
+/gate/multiPatchPET/daughters/insert sphere
+/gate/container/setMaterial Air
+/gate/container/geometry/setRmax   17.9 cm
+/gate/container/geometry/setRmin   14.1 cm               
+/gate/container/geometry/setThetaStart 30.0 degree     
+/gate/container/geometry/setDeltaTheta 180.0 degree    
+/gate/container/vis/forceWireframe                     
+/gate/container/vis/setColor gray                      
+#/gate/container/vis/setVisible false  
+/gate/systems/multiPatchPET/container/attach container            
+
+
+
+/gate/container/daughters/name P1
+/gate/container/daughters/insert patch
+/gate/P1/geometry/setPathToPatchFile Patch_outer170inner150/P1.pat
+/gate/P1/setMaterial LYSO
+/gate/P1/vis/forceSolid
+/gate/P1/vis/setColor yellow
+/gate/P1/repeaters/insert ring
+/gate/P1/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch1/attach P1
+/gate/P1/attachCrystalSD
+
+
+
+/gate/container/daughters/name P2
+/gate/container/daughters/insert patch
+/gate/P2/geometry/setPathToPatchFile Patch_outer170inner150/P2.pat
+/gate/P2/setMaterial LYSO
+/gate/P2/vis/forceSolid
+/gate/P2/vis/setColor yellow
+/gate/P2/repeaters/insert ring
+/gate/P2/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch2/attach P2
+/gate/P2/attachCrystalSD
+
+
+/gate/container/daughters/name P3
+/gate/container/daughters/insert patch
+/gate/P3/geometry/setPathToPatchFile Patch_outer170inner150/P3.pat
+/gate/P3/setMaterial LYSO
+/gate/P3/vis/forceSolid
+/gate/P3/vis/setColor yellow
+/gate/systems/multiPatchPET/Patch3/attach P3
+/gate/P3/attachCrystalSD
+
+####################################
+########      H    ############
+####################################
+
+/gate/container/daughters/name H1
+/gate/container/daughters/insert patch
+/gate/H1/geometry/setPathToPatchFile Patch_outer170inner150/H1.pat
+/gate/H1/setMaterial LYSO
+/gate/H1/vis/forceSolid
+/gate/H1/vis/setColor yellow
+/gate/H1/repeaters/insert ring
+/gate/H1/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch4/attach H1
+/gate/H1/attachCrystalSD
+
+
+/gate/container/daughters/name H2
+/gate/container/daughters/insert patch
+/gate/H2/geometry/setPathToPatchFile Patch_outer170inner150/H2.pat
+/gate/H2/setMaterial LYSO
+/gate/H2/vis/forceSolid
+/gate/H2/vis/setColor yellow
+/gate/H2/repeaters/insert ring
+/gate/H2/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch5/attach H2
+/gate/H2/attachCrystalSD
+
+
+/gate/container/daughters/name H3
+/gate/container/daughters/insert patch
+/gate/H3/geometry/setPathToPatchFile Patch_outer170inner150/H3.pat
+/gate/H3/setMaterial LYSO
+/gate/H3/vis/forceSolid
+/gate/H3/vis/setColor yellow
+/gate/H3/repeaters/insert ring
+/gate/H3/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch6/attach H3
+/gate/H3/attachCrystalSD
+
+####################################
+########      GP    ############
+####################################
+
+/gate/container/daughters/name GP1
+/gate/container/daughters/insert patch
+/gate/GP1/geometry/setPathToPatchFile Patch_outer170inner150/GP1.pat
+/gate/GP1/setMaterial LYSO
+/gate/GP1/vis/forceSolid
+/gate/GP1/vis/setColor yellow
+/gate/GP1/repeaters/insert ring
+/gate/GP1/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch7/attach GP1
+/gate/GP1/attachCrystalSD
+
+####################################
+########      GH    ############
+####################################
+
+/gate/container/daughters/name GH1
+/gate/container/daughters/insert patch
+/gate/GH1/geometry/setPathToPatchFile Patch_outer170inner150/GH1.pat
+/gate/GH1/setMaterial LYSO
+/gate/GH1/vis/forceSolid
+/gate/GH1/vis/setColor yellow
+/gate/GH1/repeaters/insert ring
+/gate/GH1/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch8/attach GH1
+/gate/GH1/attachCrystalSD
+
+
+/gate/container/daughters/name GH2
+/gate/container/daughters/insert patch
+/gate/GH2/geometry/setPathToPatchFile Patch_outer170inner150/GH2.pat
+/gate/GH2/setMaterial LYSO
+/gate/GH2/vis/forceSolid
+/gate/GH2/vis/setColor yellow
+/gate/GH2/repeaters/insert ring
+/gate/GH2/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch9/attach GH2
+/gate/GH2/attachCrystalSD
+
+
+/gate/container/daughters/name GH3
+/gate/container/daughters/insert patch
+/gate/GH3/geometry/setPathToPatchFile Patch_outer170inner150/GH3.pat
+/gate/GH3/setMaterial LYSO
+/gate/GH3/vis/forceSolid
+/gate/GH3/vis/setColor yellow
+/gate/GH3/repeaters/insert ring
+/gate/GH3/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch10/attach GH3
+/gate/GH3/attachCrystalSD
+
+
+/gate/container/daughters/name GH4
+/gate/container/daughters/insert patch
+/gate/GH4/geometry/setPathToPatchFile Patch_outer170inner150/GH4.pat
+/gate/GH4/setMaterial LYSO
+/gate/GH4/vis/forceSolid
+/gate/GH4/vis/setColor yellow
+/gate/GH4/repeaters/insert ring
+/gate/GH4/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch11/attach GH4
+/gate/GH4/attachCrystalSD
+
+
+/gate/container/daughters/name GH5
+/gate/container/daughters/insert patch
+/gate/GH5/geometry/setPathToPatchFile Patch_outer170inner150/GH5.pat
+/gate/GH5/setMaterial LYSO
+/gate/GH5/vis/forceSolid
+/gate/GH5/vis/setColor yellow
+/gate/GH5/repeaters/insert ring
+/gate/GH5/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch12/attach GH5
+/gate/GH5/attachCrystalSD
+
+
+/gate/container/daughters/name GH6
+/gate/container/daughters/insert patch
+/gate/GH6/geometry/setPathToPatchFile Patch_outer170inner150/GH6.pat
+/gate/GH6/setMaterial LYSO
+/gate/GH6/vis/forceSolid
+/gate/GH6/vis/setColor yellow
+/gate/GH6/repeaters/insert ring
+/gate/GH6/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch13/attach GH6
+/gate/GH6/attachCrystalSD
+
+
+/gate/container/daughters/name GH7
+/gate/container/daughters/insert patch
+/gate/GH7/geometry/setPathToPatchFile Patch_outer170inner150/GH7.pat
+/gate/GH7/setMaterial LYSO
+/gate/GH7/vis/forceSolid
+/gate/GH7/vis/setColor yellow
+/gate/GH7/repeaters/insert ring
+/gate/GH7/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch14/attach GH7
+/gate/GH7/attachCrystalSD
+
+
+/gate/container/daughters/name GH8
+/gate/container/daughters/insert patch
+/gate/GH8/geometry/setPathToPatchFile Patch_outer170inner150/GH8.pat
+/gate/GH8/setMaterial LYSO
+/gate/GH8/vis/forceSolid
+/gate/GH8/vis/setColor yellow
+/gate/GH8/repeaters/insert ring
+/gate/GH8/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch15/attach GH8
+/gate/GH8/attachCrystalSD
+
+
+/gate/container/daughters/name GH9
+/gate/container/daughters/insert patch
+/gate/GH9/geometry/setPathToPatchFile Patch_outer170inner150/GH9.pat
+/gate/GH9/setMaterial LYSO
+/gate/GH9/vis/forceSolid
+/gate/GH9/vis/setColor yellow
+/gate/GH9/repeaters/insert ring
+/gate/GH9/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch16/attach GH9
+/gate/GH9/attachCrystalSD
+
+
+/gate/container/daughters/name GH10
+/gate/container/daughters/insert patch
+/gate/GH10/geometry/setPathToPatchFile Patch_outer170inner150/GH10.pat
+/gate/GH10/setMaterial LYSO
+/gate/GH10/vis/forceSolid
+/gate/GH10/vis/setColor yellow
+/gate/GH10/repeaters/insert ring
+/gate/GH10/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch17/attach GH10
+/gate/GH10/attachCrystalSD
+
+
+/gate/container/daughters/name GH11
+/gate/container/daughters/insert patch
+/gate/GH11/geometry/setPathToPatchFile Patch_outer170inner150/GH11.pat
+/gate/GH11/setMaterial LYSO
+/gate/GH11/vis/forceSolid
+/gate/GH11/vis/setColor yellow
+/gate/GH11/repeaters/insert ring
+/gate/GH11/ring/setRepeatNumber 5
+/gate/systems/multiPatchPET/Patch18/attach GH11
+/gate/GH11/attachCrystalSD
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#

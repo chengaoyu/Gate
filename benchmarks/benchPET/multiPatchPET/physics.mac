@@ -1,0 +1,119 @@
+#
+#       P H Y S I C S
+#
+
+
+/gate/physics/addProcess PhotoElectric
+/gate/physics/processes/PhotoElectric/setModel StandardModel
+
+/gate/physics/addProcess Compton
+/gate/physics/processes/Compton/setModel StandardModel
+
+/gate/physics/addProcess RayleighScattering 
+/gate/physics/processes/RayleighScattering/setModel LivermoreModel
+
+/gate/physics/addProcess ElectronIonisation
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e-
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e+
+
+/gate/physics/addProcess Bremsstrahlung
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e-
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e+
+
+/gate/physics/addProcess PositronAnnihilation
+
+/gate/physics/addProcess eMultipleScattering
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e- distanceToBoundary
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e+ distanceToBoundary
+
+/gate/physics/addProcess RadioactiveDecay
+
+/gate/physics/addAtomDeexcitation
+#/process/em/fluo  false
+#/process/em/auger false
+#/process/em/pixe  false
+
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+#
+#       C U T S
+#
+
+
+# Cuts for particle in NEMACylinder
+/gate/physics/Gamma/SetCutInRegion      derenzo_phantom 1.0 cm
+/gate/physics/Electron/SetCutInRegion   derenzo_phantom 1.0 cm
+/gate/physics/Positron/SetCutInRegion   derenzo_phantom 1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion P1  1.0 cm
+/gate/physics/Electron/SetCutInRegion P1  1.0 cm
+/gate/physics/Positron/SetCutInRegion P1  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion P2  1.0 mm
+/gate/physics/Electron/SetCutInRegion P2  1.0 cm
+/gate/physics/Positron/SetCutInRegion P2  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion P3  1.0 mm
+/gate/physics/Electron/SetCutInRegion P3  1.0 cm
+/gate/physics/Positron/SetCutInRegion P3  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion H1  1.0 mm
+/gate/physics/Electron/SetCutInRegion H1  1.0 cm
+/gate/physics/Positron/SetCutInRegion H1  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion H2  1.0 cm
+/gate/physics/Electron/SetCutInRegion H2  1.0 cm
+/gate/physics/Positron/SetCutInRegion H2  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion H3  1.0 cm
+/gate/physics/Electron/SetCutInRegion H3  1.0 cm
+/gate/physics/Positron/SetCutInRegion H3  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GP1  1.0 cm
+/gate/physics/Electron/SetCutInRegion GP1  1.0 cm
+/gate/physics/Positron/SetCutInRegion GP1  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH1  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH1  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH1  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH2  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH2  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH2  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH3  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH3  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH3  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH4  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH4  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH4  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH5  1.0 mm
+/gate/physics/Electron/SetCutInRegion GH5  1.0 mm
+/gate/physics/Positron/SetCutInRegion GH5  1.0 mm
+
+/gate/physics/Gamma/SetCutInRegion GH6  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH6  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH6  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH7  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH7  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH7  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH8  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH8  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH8  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH9  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH9  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH9  1.0 cm
+
+/gate/physics/Gamma/SetCutInRegion GH10  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH10  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH10  1.0 mm
+
+/gate/physics/Gamma/SetCutInRegion GH11  1.0 cm
+/gate/physics/Electron/SetCutInRegion GH11  1.0 cm
+/gate/physics/Positron/SetCutInRegion GH11  1.0 cm

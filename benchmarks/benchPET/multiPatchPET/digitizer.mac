@@ -1,0 +1,50 @@
+#	A D D E R
+/gate/digitizer/Singles/insert adder
+
+
+#       R E A D O U T 
+/gate/digitizer/Singles/insert readout
+#/gate/digitizer/Singles/readout/setPolicy TakeEnergyCentroid 
+/gate/digitizer/Singles/readout/setDepth 2
+
+
+#      E N E R G Y   B L U R R I N G
+/gate/digitizer/Singles/insert blurring
+/gate/digitizer/Singles/blurring/setResolution 0.116
+/gate/digitizer/Singles/blurring/setEnergyOfReference 511. keV
+
+
+#       E N E R G Y   C U T
+/gate/digitizer/Singles/insert thresholder
+/gate/digitizer/Singles/thresholder/setThreshold 435. keV
+/gate/digitizer/Singles/insert upholder
+/gate/digitizer/Singles/upholder/setUphold 650. keV
+
+
+#       D E A D    T I M E 
+/gate/digitizer/Singles/insert deadtimeMulti
+/gate/digitizer/Singles/deadtimeMulti/setDeadTime 300000. ps
+/gate/digitizer/Singles/deadtimeMulti/setMode paralysable
+/gate/digitizer/Singles/deadtimeMulti/chooseDTVolume container
+
+
+
+
+#	C O I N C I    S O R T E R 
+/gate/digitizer/Coincidences/setWindow 1. ns
+/gate/digitizer/Coincidences/setOffset 0. ns
+/gate/digitizer/Coincidences/describe
+
+/gate/digitizer/name delay
+/gate/digitizer/insert coincidenceSorter
+/gate/digitizer/delay/setWindow 10. ns
+/gate/digitizer/delay/setOffset 500. ns
+/gate/digitizer/delay/describe
+
+
+/gate/digitizer/name finalCoinc
+/gate/digitizer/insert coincidenceChain
+/gate/digitizer/finalCoinc/addInputName delay
+/gate/digitizer/finalCoinc/addInputName Coincidences
+/gate/digitizer/finalCoinc/usePriority true
+/gate/digitizer/finalCoinc/describe

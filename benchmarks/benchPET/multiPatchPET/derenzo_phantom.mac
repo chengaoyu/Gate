@@ -1,0 +1,6 @@
+/gate/world/daughters/name derenzo_phantom
+/gate/world/daughters/insert ImageRegularParametrisedVolume
+/gate/derenzo_phantom/geometry/SetImage Derenzo.h33
+/gate/derenzo_phantom/geometry/setRangeToMaterialFile range_atten_brain.dat
+/gate/derenzo_phantom/placement/setTranslation  0. 0. 0. mm
+/gate/derenzo_phantom/attachPhantomSD

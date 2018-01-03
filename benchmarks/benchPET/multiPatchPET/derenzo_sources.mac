@@ -1,0 +1,18 @@
+/gate/source/addSource voxel_derenzo voxel
+/gate/source/voxel_derenzo/reader/insert interfile
+/gate/source/voxel_derenzo/interfileReader/translator/insert range
+/gate/source/voxel_derenzo/interfileReader/rangeTranslator/readTable activity_range_brain.dat
+/gate/source/voxel_derenzo/interfileReader/rangeTranslator/describe 1
+/gate/source/voxel_derenzo/interfileReader/readFile Derenzo.h33
+/gate/source/voxel_derenzo/setPosition   -51.2 -51.2 -50 mm
+
+/gate/source/voxel_derenzo/setType backtoback
+/gate/source/voxel_derenzo/gps/particle gamma
+/gate/source/voxel_derenzo/setForcedUnstableFlag true
+/gate/source/voxel_derenzo/setForcedHalfLife 6586.2 s
+
+/gate/source/voxel_derenzo/gps/monoenergy 0.511 MeV
+/gate/source/voxel_derenzo/gps/confine NULL
+/gate/source/voxel_derenzo/gps/angtype iso
+/gate/source/voxel_derenzo/dump 1
+/gate/source/list
