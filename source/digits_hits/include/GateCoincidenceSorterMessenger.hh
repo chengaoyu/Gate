@@ -67,6 +67,9 @@ class GateCoincidenceSorterMessenger: public GateClockDependentMessenger
     G4UIcmdWithAString          *SetInputNameCmd;    //!< The UI command "set input name"
     G4UIcmdWithAString          *MultiplePolicyCmd;  //!< The UI command "MultiplesPolicy"
     G4UIcmdWithABool            *AllPulseOpenCoincGateCmd;  //!< The UI command "allowMultiples"
+
+    //added by CGY in 2016/12/12
+    G4UIcmdWithADoubleAndUnit   *SetMinCoinDistanceCmd; //!< The UI command 'setMinCoinDistance'
 };
 
 #endif

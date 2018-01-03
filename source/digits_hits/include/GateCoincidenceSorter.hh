@@ -101,6 +101,13 @@ class GateCoincidenceSorter : public GateClockDependent
     inline void SetDepth(G4int depth)
         { m_depth = depth; }
 
+    //
+    //! Get the minimum coincidence distance
+    inline G4double GetMinCoinDistance() const
+    {return m_minCoinDistance;}
+    //! Set the minimum coincidence distance
+    inline void SetMinCoinDistance(G4double dist)
+    {m_minCoinDistance = dist;}
     inline G4bool GetAllPulseOpenCoincGate() const
         { return m_allPulseOpenCoincGate; }
     inline void SetAllPulseOpenCoincGate(G4bool b)
@@ -152,6 +159,8 @@ class GateCoincidenceSorter : public GateClockDependent
     G4bool              m_allPulseOpenCoincGate;        //!< can a pulse be part of two coincs?
     G4int               m_depth;                        //!< Depth of system-level for coincidences
 
+    //! added by CGY to adapt the coincidence sorter in sphericalPET scanner
+    G4double            m_minCoinDistance;                  //!< the minimum distance between the two pulses
     //@}
 
   private:
