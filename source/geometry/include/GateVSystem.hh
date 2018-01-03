@@ -19,6 +19,12 @@ See GATE/LICENSE.txt for further details
 #include "GateBoxComponent.hh"
 #include "GateCylinderComponent.hh"
 #include "GateWedgeComponent.hh"
+#include "GatePrismComponent.hh"
+#include "GatePentagonComponent.hh"
+#include "GateHexagonComponent.hh"
+#include "GateSphereComponent.hh"
+#include "GatePatchComponent.hh"
+#include "GateTessellatedComponent.hh"
 #include "GatePulse.hh"
 
 class GateVolumeID;
@@ -57,7 +63,7 @@ class GateVVolume;
     \sa GateCylindricalPETSystem, GateSystemComponent, GateOutputVolumeID
 */      
 //    Last modification in 12/2011 by Abdul-Fattah.Mohamad-Hadi@subatech.in2p3.fr, for the multi-system approach.
-
+//    add GatePrismComponent and GateSphereComponent in 11/2016 by CGY for the GateSphericalPETSystem.
 class GateVSystem : public GateClockDependent
 {
   public:
@@ -128,12 +134,31 @@ class GateVSystem : public GateClockDependent
     //! Finds a boxcreator-component from its name
     GateBoxComponent* FindBoxCreatorComponent(const G4String& aComponent) const;
  
-    //! Finds a creatorcreator-component from its name
+    //! Finds a cylindercreator-component from its name
     GateCylinderComponent* FindCylinderCreatorComponent(const G4String& aComponent) const;
    
     //! Finds a wedgecreator-component from its name
     GateWedgeComponent* FindWedgeCreatorComponent(const G4String& aComponent) const;
- 
+
+    //added by CGY
+    //! Finds a prismcreator-component from its name
+    GatePrismComponent* FindPrismCreatorComponent(const G4String& aComponent) const;
+
+    //! Finds a pentagoncreator-component from its name
+    GatePentagonComponent* FindPentagonCreatorComponent(const G4String& aComponent) const;
+
+    //! Finds a spherecreator-component from its name
+    GateHexagonComponent* FindHexagonCreatorComponent(const G4String& aComponent) const;
+
+    //! Finds a spherecreator-component from its name
+    GateSphereComponent* FindSphereCreatorComponent(const G4String& aComponent) const;
+    //
+    //! Find a patchcreator-component from its name
+    GatePatchComponent* FindPatchCreatorComponent(const G4String& aComponent) const;
+
+    //! Find a Tessellated-component from its name
+    GateTessellatedComponent* FindTessellatedCreatorComponent(const G4String& aComponent) const;
+
     //! Returns the main-component of the system.
     virtual GateSystemComponent* GetMainComponent() const
     {  return m_mainComponentDepth ? m_BaseComponent->GetChildComponent(0) :  m_BaseComponent ; }
@@ -195,7 +220,7 @@ class GateVSystem : public GateClockDependent
     //! Get the name of the system
     inline G4String GetName()
     {   return mName ; }
-    
+
     //! Get the own name of a system, note thate this name may be any name.
     inline G4String GetOwnName() const { return m_itsOwnName; }
     
